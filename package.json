@@ -90,6 +90,7 @@
     "webpack-cli": "^4.8.0"
   },
   "peerDependencies": {
+    "parsegraph-log": "^1.6.1",
     "parsegraph-checkglerror": "^1.5.0"
   }
 }

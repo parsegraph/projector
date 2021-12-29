@@ -25,6 +25,7 @@
     "parsegraph-timing": "^1.4.8"
   },
   "peerDependencies": {
+    "parsegraph-log": "^1.6.1",
     "parsegraph-checkglerror": "^1.5.0"
   }
 }
