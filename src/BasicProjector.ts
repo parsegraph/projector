@@ -26,10 +26,10 @@ export default class BasicProjector implements Projector {
   _schedulerFunc: () => void;
   _schedulerFuncThisArg: object;
 
-  constructor(color?: Color) {
+  constructor(backgroundColor?: Color) {
     const glProvider = new BasicGLProvider(
       "Projector " + ++projectorCount,
-      color || BACKGROUND_COLOR
+      backgroundColor || BACKGROUND_COLOR
     );
     this._glProvider = glProvider;
     this._textureSize = NaN;
