@@ -1,36 +1,29 @@
-import Projector from "./Projector";
+import Projector, {createDOMContainer} from "./Projector";
 import { GLProvider } from "parsegraph-compileprogram";
 
 export default class SharedProjector implements Projector {
   _shared: Projector;
-  _childContainer: HTMLDivElement;
+  _domContainer: HTMLDivElement;
   _schedulerFunc: () => void;
   _schedulerFuncThisArg: object;
 
   constructor(shared: Projector) {
     this._shared = shared;
 
-    // Setup DOM layer
-    const container = document.createElement("div");
-    container.style.position = "absolute";
-    const childContainer = document.createElement("div");
-    childContainer.style.position = "relative";
-    childContainer.style.overflow = "hidden";
-    container.appendChild(childContainer);
-    this._childContainer = childContainer;
-    this.container().appendChild(container);
+    this._domContainer = createDOMContainer();
+    this.container().appendChild(this._domContainer.parentElement);
   }
 
   unmount() {
-    this.container().removeChild(this.getChildContainer().parentElement);
+    this.container().removeChild(this.getDOMContainer().parentElement);
   }
 
   container() {
     return this.glProvider().container();
   }
 
-  getChildContainer() {
-    return this._childContainer;
+  getDOMContainer() {
+    return this._domContainer;
   }
 
   getProvider(): GLProvider {

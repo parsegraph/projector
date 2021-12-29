@@ -90,14 +90,14 @@ export default class Projection implements Renderable {
         height - compSize.y() - compSize.height()
       );
     }
-    const childContainer = this.projector().getChildContainer();
-    if (childContainer) {
-      const container = childContainer.parentElement;
+    const domContainer = this.projector().getDOMContainer();
+    if (domContainer) {
+      const container = domContainer.parentElement;
       container.style.left = compSize.x() + "px";
       const height = container.clientHeight;
       container.style.top = height - compSize.y() - compSize.height() + "px";
-      childContainer.style.width = compSize.width() + "px";
-      childContainer.style.height = compSize.height() + "px";
+      domContainer.style.width = compSize.width() + "px";
+      domContainer.style.height = compSize.height() + "px";
     }
   }
 

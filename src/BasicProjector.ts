@@ -1,4 +1,4 @@
-import Projector from "./Projector";
+import Projector, {createDOMContainer} from "./Projector";
 import { GLProvider, BasicGLProvider } from "parsegraph-compileprogram";
 import Color from "parsegraph-color";
 
@@ -22,7 +22,7 @@ export default class BasicProjector implements Projector {
   _textureSize: number;
   _overlayCanvas: HTMLCanvasElement;
   _overlayCtx: CanvasRenderingContext2D;
-  _childContainer: HTMLDivElement;
+  _domContainer: HTMLDivElement;
   _schedulerFunc: () => void;
   _schedulerFuncThisArg: object;
 
@@ -53,15 +53,8 @@ export default class BasicProjector implements Projector {
     this._overlayCtx = this._overlayCanvas.getContext("2d");
     this.container().appendChild(this._overlayCanvas);
 
-    // Setup DOM layer
-    const container = document.createElement("div");
-    container.style.position = "absolute";
-    const childContainer = document.createElement("div");
-    childContainer.style.position = "relative";
-    childContainer.style.overflow = "hidden";
-    container.appendChild(childContainer);
-    this._childContainer = childContainer;
-    this.container().appendChild(container);
+    this._domContainer = createDOMContainer();
+    this.container().appendChild(this._domContainer.parentElement);
 
     // Observe root container for size changes.
     new ResizeObserver(() => {
@@ -73,8 +66,8 @@ export default class BasicProjector implements Projector {
     return this.glProvider().container();
   }
 
-  getChildContainer() {
-    return this._childContainer;
+  getDOMContainer() {
+    return this._domContainer;
   }
 
   getProvider(): GLProvider {
