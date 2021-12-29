@@ -1,10 +1,13 @@
 const path = require("path");
 
 module.exports = {
-  entry: path.resolve(__dirname, "src/index.ts"),
+  entry: {
+    lib:path.resolve(__dirname, "src/index.ts"),
+    demo:path.resolve(__dirname, "src/demo.ts"),
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "parsegraph-projector.js",
+    filename: "parsegraph-projector.[name].js",
     globalObject: "this",
     library: "parsegraph_projector",
     libraryTarget: "umd",

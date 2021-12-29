@@ -1,17 +1,18 @@
 DIST_NAME = projector
 
 SCRIPT_FILES = \
-	src/index.ts
+	src/index.ts \
+	src/demo.ts
 
 all: build lint test coverage esdoc
 
-build: dist/parsegraph-$(DIST_NAME).js
+build: dist/parsegraph-$(DIST_NAME).lib.js
 .PHONY: build
 
-build-prod: dist-prod/parsegraph-$(DIST_NAME).js
+build-prod: dist-prod/parsegraph-$(DIST_NAME).lib.js
 .PHONY: build-prod
 
-demo: dist/parsegraph-$(DIST_NAME).js
+demo: dist/parsegraph-$(DIST_NAME).demo.js
 	npm run demo
 .PHONY: demo
 
@@ -47,7 +48,7 @@ tar: parsegraph-$(DIST_NAME)-dev.tgz
 tar-prod: parsegraph-$(DIST_NAME)-prod.tgz
 .PHONY: tar
 
-parsegraph-$(DIST_NAME)-prod.tgz: dist-prod/parsegraph-$(DIST_NAME).js
+parsegraph-$(DIST_NAME)-prod.tgz: dist-prod/parsegraph-$(DIST_NAME).lib.js
 	rm -rf parsegraph-$(DIST_NAME)
 	mkdir parsegraph-$(DIST_NAME)
 	cp -r README.md LICENSE parsegraph-$(DIST_NAME)
@@ -56,24 +57,21 @@ parsegraph-$(DIST_NAME)-prod.tgz: dist-prod/parsegraph-$(DIST_NAME).js
 	tar cvzf $@ parsegraph-$(DIST_NAME)/
 	rm -rf parsegraph-$(DIST_NAME)
 
-parsegraph-$(DIST_NAME)-dev.tgz: dist/parsegraph-$(DIST_NAME).js
+parsegraph-$(DIST_NAME)-dev.tgz: dist/parsegraph-$(DIST_NAME).lib.js
 	rm -rf parsegraph-$(DIST_NAME)
 	mkdir parsegraph-$(DIST_NAME)
 	cp -r -t parsegraph-$(DIST_NAME) package.json package-lock.json README.md demo/ LICENSE dist/
 	tar cvzf $@ parsegraph-$(DIST_NAME)/
 	rm -rf parsegraph-$(DIST_NAME)
 
-dist/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FILES) $(GLSL_SCRIPTS)
+dist/parsegraph-$(DIST_NAME).lib.js: package.json package-lock.json $(SCRIPT_FILES) $(GLSL_SCRIPTS)
 	npm run build
 	mv -v dist-types/src/* dist/
 	mv dist/index.d.ts dist/parsegraph-$(DIST_NAME).d.ts
 	mv dist/index.d.ts.map dist/parsegraph-$(DIST_NAME).d.ts.map
 
-dist-prod/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FILES)
-	npm run build-prod
-	mv -v dist-types/src/* dist-prod/
-	mv dist-prod/index.d.ts dist-prod/parsegraph-$(DIST_NAME).d.ts
-	mv dist-prod/index.d.ts.map dist-prod/parsegraph-$(DIST_NAME).d.ts.map
+dist-prod/parsegraph-$(DIST_NAME).demo.js: package.json package-lock.json $(SCRIPT_FILES)
+	npm run build
 
 clean:
 	rm -rf dist dist-types dist-prod .nyc_output parsegraph-$(DIST_NAME) parsegraph-$(DIST_NAME)-dev.tgz parsegraph-$(DIST_NAME)-prod.tgz
