@@ -50,6 +50,7 @@
     "@types/mocha": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
+    "@types/resize-observer-browser": "^0.1.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
     "babel-plugin-istanbul": "^6.0.0",
@@ -67,7 +68,14 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "openssl": "^1.1.0",
-    "parsegraph-testsuite": "^1.5.0",
+    "parsegraph-color": "^1.4.4",
+    "parsegraph-compileprogram": "^2.1.1",
+    "parsegraph-matrix": "^1.4.7",
+    "parsegraph-method": "^1.4.10",
+    "parsegraph-normalizewheel": "^1.4.4",
+    "parsegraph-timingbelt": "^1.6.1",
+    "parsegraph-rect": "^1.4.5",
+    "parsegraph-timing": "^1.4.8",
     "prettier": "2.1.2",
     "raw-loader": "^4.0.1",
     "source-map-loader": "^1.0.2",
@@ -80,5 +88,8 @@
     "webgl-mock": "^0.1.7",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0"
+  },
+  "peerDependencies": {
+    "parsegraph-checkglerror": "^1.5.0"
   }
 }
