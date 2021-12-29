@@ -74,7 +74,7 @@ dist/parsegraph-$(DIST_NAME).demo.js: package.json package-lock.json $(SCRIPT_FI
 	npm run build
 
 dist-prod/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FILES)
-	npm run build
+	npm run build-prod
 
 clean:
 	rm -rf dist dist-types dist-prod .nyc_output parsegraph-$(DIST_NAME) parsegraph-$(DIST_NAME)-dev.tgz parsegraph-$(DIST_NAME)-prod.tgz
