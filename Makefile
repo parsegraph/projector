@@ -9,7 +9,7 @@ all: build lint test coverage esdoc
 build: dist/parsegraph-$(DIST_NAME).lib.js
 .PHONY: build
 
-build-prod: dist-prod/parsegraph-$(DIST_NAME).lib.js
+build-prod: dist-prod/parsegraph-$(DIST_NAME).js
 .PHONY: build-prod
 
 demo: dist/parsegraph-$(DIST_NAME).demo.js
@@ -48,7 +48,7 @@ tar: parsegraph-$(DIST_NAME)-dev.tgz
 tar-prod: parsegraph-$(DIST_NAME)-prod.tgz
 .PHONY: tar
 
-parsegraph-$(DIST_NAME)-prod.tgz: dist-prod/parsegraph-$(DIST_NAME).lib.js
+parsegraph-$(DIST_NAME)-prod.tgz: dist-prod/parsegraph-$(DIST_NAME).js
 	rm -rf parsegraph-$(DIST_NAME)
 	mkdir parsegraph-$(DIST_NAME)
 	cp -r README.md LICENSE parsegraph-$(DIST_NAME)
@@ -70,7 +70,10 @@ dist/parsegraph-$(DIST_NAME).lib.js: package.json package-lock.json $(SCRIPT_FIL
 	mv dist/index.d.ts dist/parsegraph-$(DIST_NAME).d.ts
 	mv dist/index.d.ts.map dist/parsegraph-$(DIST_NAME).d.ts.map
 
-dist-prod/parsegraph-$(DIST_NAME).demo.js: package.json package-lock.json $(SCRIPT_FILES)
+dist/parsegraph-$(DIST_NAME).demo.js: package.json package-lock.json $(SCRIPT_FILES)
+	npm run build
+
+dist-prod/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FILES)
 	npm run build
 
 clean:
