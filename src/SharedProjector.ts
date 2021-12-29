@@ -37,15 +37,11 @@ export default class SharedProjector implements Projector {
   isOffscreen(): boolean {
     return this.shared().isOffscreen();
   }
+
   shared() {
     return this._shared;
   }
 
-  /**
-   * Sets the mouse cursor bitmap by this canvas.
-   *
-   * @param {string} cursorType CSS cursor style
-   */
   setCursor(cursorType: string): void {
     this.shared().setCursor(cursorType);
   }

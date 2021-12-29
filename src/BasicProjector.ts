@@ -152,14 +152,22 @@ export default class BasicProjector implements Projector {
     this._schedulerFuncThisArg = schedulerFuncThisArg;
   }
 
+  width() {
+    return this.glProvider().width();
+  }
+
+  height() {
+    return this.glProvider().height();
+  }
+
   render(): boolean {
-    this._overlayCanvas.width = this.glProvider().width();
-    this._overlayCanvas.height = this.glProvider().height();
+    this._overlayCanvas.width = this.width();
+    this._overlayCanvas.height = this.height();
     this._overlayCtx.clearRect(
       0,
       0,
-      this._overlayCanvas.width,
-      this._overlayCanvas.height
+      this.width(),
+      this.height()
     );
     let needsUpdate = false;
     needsUpdate = this.glProvider().render() || needsUpdate;
