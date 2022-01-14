@@ -1,4 +1,4 @@
-import Projector, {createDOMContainer} from "./Projector";
+import Projector, { createDOMContainer } from "./Projector";
 import { GLProvider, BasicGLProvider } from "parsegraph-compileprogram";
 import Color from "parsegraph-color";
 
@@ -163,12 +163,7 @@ export default class BasicProjector implements Projector {
   render(): boolean {
     this._overlayCanvas.width = this.width();
     this._overlayCanvas.height = this.height();
-    this._overlayCtx.clearRect(
-      0,
-      0,
-      this.width(),
-      this.height()
-    );
+    this._overlayCtx.clearRect(0, 0, this.width(), this.height());
     let needsUpdate = false;
     needsUpdate = this.glProvider().render() || needsUpdate;
     return needsUpdate;

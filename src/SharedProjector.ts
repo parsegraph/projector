@@ -1,4 +1,4 @@
-import Projector, {createDOMContainer} from "./Projector";
+import Projector, { createDOMContainer } from "./Projector";
 import { GLProvider } from "parsegraph-compileprogram";
 
 export default class SharedProjector implements Projector {

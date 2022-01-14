@@ -65,7 +65,7 @@ export default interface Projector {
  * Creates a HTML div element intended to contain child elements for a
  * projector.
  */
-export function createDOMContainer():HTMLDivElement {
+export function createDOMContainer(): HTMLDivElement {
   // Setup DOM layer
   const container = document.createElement("div");
   container.style.position = "absolute";

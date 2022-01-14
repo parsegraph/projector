@@ -10,7 +10,7 @@ import Rect from "parsegraph-rect";
 import SharedProjector from "./SharedProjector";
 
 class Demo implements Projected {
-  _content:Map<Projector, HTMLDivElement>;
+  _content: Map<Projector, HTMLDivElement>;
 
   constructor() {
     this._content = new Map();
@@ -37,34 +37,41 @@ class Demo implements Projected {
   render(projector: Projector): boolean {
     const div = this._content.get(projector);
     div.style.display = "initial";
-    div.style.transform = `translate(${Math.round(Math.random() * projector.glProvider().container().clientWidth)}px, ${Math.round(Math.random() * projector.glProvider().container().clientHeight)}px)`;
+    div.style.transform = `translate(${Math.round(
+      Math.random() * projector.glProvider().container().clientWidth
+    )}px, ${Math.round(
+      Math.random() * projector.glProvider().container().clientHeight
+    )}px)`;
     div.style.transformOrigin = "top left";
 
     const ctx = projector.overlay();
     ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, projector.overlayCanvas().width, projector.overlayCanvas().height);
+    ctx.fillRect(
+      0,
+      0,
+      projector.overlayCanvas().width,
+      projector.overlayCanvas().height
+    );
     ctx.font = "16px serif";
     ctx.fillStyle = "white";
     ctx.textBaseline = "top";
-    ctx.fillText("This is rendering from a projector", Math.random() * projector.overlayCanvas().width, Math.random() * projector.overlayCanvas().height);
+    ctx.fillText(
+      "This is rendering from a projector",
+      Math.random() * projector.overlayCanvas().width,
+      Math.random() * projector.overlayCanvas().height
+    );
     return false;
   }
 
-  unmount(projector: Projector): void {
+  unmount(projector: Projector): void {}
 
-  }
+  contextChanged(projector: Projector, isLost: boolean): void {}
 
-  contextChanged(projector: Projector, isLost: boolean): void {
-
-  }
-
-  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {
-
-  }
+  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {}
 }
 
 class BG implements Projected {
-  _content:Map<Projector, HTMLDivElement>;
+  _content: Map<Projector, HTMLDivElement>;
 
   constructor() {
     this._content = new Map();
@@ -81,24 +88,23 @@ class BG implements Projected {
   render(projector: Projector): boolean {
     const ctx = projector.overlay();
     ctx.fillStyle = "#111";
-    ctx.fillRect(0, 0, projector.overlayCanvas().width, projector.overlayCanvas().height);
+    ctx.fillRect(
+      0,
+      0,
+      projector.overlayCanvas().width,
+      projector.overlayCanvas().height
+    );
     return false;
   }
 
-  unmount(projector: Projector): void {
+  unmount(projector: Projector): void {}
 
-  }
+  contextChanged(projector: Projector, isLost: boolean): void {}
 
-  contextChanged(projector: Projector, isLost: boolean): void {
-
-  }
-
-  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {
-
-  }
+  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {}
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
 
   // Background
@@ -125,7 +131,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   proj3.setClip(new Rect(650, 50, 250, 250));
   belt.addRenderable(proj3);
 
-  document.getElementById("schedule-update").addEventListener("click", ()=>{
+  document.getElementById("schedule-update").addEventListener("click", () => {
     belt.scheduleUpdate();
   });
 });
