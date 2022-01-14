@@ -34,13 +34,13 @@ class Demo implements Projected {
     return false;
   }
 
-  render(projector: Projector): boolean {
+  render(projector: Projector, width: number, height: number): boolean {
     const div = this._content.get(projector);
     div.style.display = "initial";
     div.style.transform = `translate(${Math.round(
-      Math.random() * projector.glProvider().container().clientWidth
+      Math.random() * width
     )}px, ${Math.round(
-      Math.random() * projector.glProvider().container().clientHeight
+      Math.random() * height
     )}px)`;
     div.style.transformOrigin = "top left";
 
@@ -49,16 +49,16 @@ class Demo implements Projected {
     ctx.fillRect(
       0,
       0,
-      projector.overlayCanvas().width,
-      projector.overlayCanvas().height
+      width,
+      height
     );
     ctx.font = "16px serif";
     ctx.fillStyle = "white";
     ctx.textBaseline = "top";
     ctx.fillText(
       "This is rendering from a projector",
-      Math.random() * projector.overlayCanvas().width,
-      Math.random() * projector.overlayCanvas().height
+      Math.random() * width,
+      Math.random() * height
     );
     return false;
   }

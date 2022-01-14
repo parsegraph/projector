@@ -49,8 +49,12 @@ export default class Projection implements Renderable {
     return this._projector;
   }
 
+  hasClip() {
+    return !!this._clip;
+  }
+
   prepareClip(): void {
-    if (!this._clip) {
+    if (!this.hasClip()) {
       return;
     }
     const compSize = this._clip;
@@ -111,10 +115,16 @@ export default class Projection implements Renderable {
     }
   }
 
+  clip() {
+    return this._clip;
+  }
+
   render(): boolean {
     let needsUpdate = this.projector().render();
+    const width = this.hasClip() ? this.clip().width() : this.projector().width();
+    const height = this.hasClip() ? this.clip().height() : this.projector().height();
     this.prepareClip();
-    needsUpdate = this.projected().render(this.projector()) || needsUpdate;
+    needsUpdate = this.projected().render(this.projector(), width, height) || needsUpdate;
     this.removeClip();
     return needsUpdate;
   }
