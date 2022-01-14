@@ -1,8 +1,11 @@
 import { assert } from "chai";
-import todo from "../dist/parsegraph-projector";
+import {BasicProjector} from "../dist/parsegraph-projector.lib";
+import Color from "parsegraph-color";
 
 describe("Package", function () {
+  global.ResizeObserver = require('resize-observer-polyfill')
+  window.ResizeObserver = require('resize-observer-polyfill')
   it("works", () => {
-    assert.equal(todo(), 42);
+    assert.ok(new BasicProjector(new Color(0, 0, 0, 1)));
   });
 });
