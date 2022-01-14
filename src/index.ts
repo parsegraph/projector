@@ -1,7 +1,10 @@
-import BasicProjector, {MAX_TEXTURE_SIZE, BACKGROUND_COLOR} from "./BasicProjector";
+import BasicProjector, {
+  MAX_TEXTURE_SIZE,
+  BACKGROUND_COLOR,
+} from "./BasicProjector";
 import Projected from "./Projected";
 import Projection from "./Projection";
-import Projector, {createDOMContainer} from "./Projector";
+import Projector, { createDOMContainer } from "./Projector";
 import SharedProjector from "./SharedProjector";
 
 export {
@@ -12,5 +15,5 @@ export {
   Projection,
   Projector,
   createDOMContainer,
-  SharedProjector
+  SharedProjector,
 };

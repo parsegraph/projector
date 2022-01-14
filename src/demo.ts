@@ -16,11 +16,11 @@ class Demo implements Projected {
     this._content = new Map();
   }
 
-  tick(elapsed: number): boolean {
+  tick(_: number): boolean {
     return false;
   }
 
-  paint(projector: Projector, timeout?: number): boolean {
+  paint(projector: Projector): boolean {
     if (!this._content.has(projector)) {
       const div = document.createElement("div");
       div.style.color = "yellow";
@@ -39,19 +39,12 @@ class Demo implements Projected {
     div.style.display = "initial";
     div.style.transform = `translate(${Math.round(
       Math.random() * width
-    )}px, ${Math.round(
-      Math.random() * height
-    )}px)`;
+    )}px, ${Math.round(Math.random() * height)}px)`;
     div.style.transformOrigin = "top left";
 
     const ctx = projector.overlay();
     ctx.fillStyle = "red";
-    ctx.fillRect(
-      0,
-      0,
-      width,
-      height
-    );
+    ctx.fillRect(0, 0, width, height);
     ctx.font = "16px serif";
     ctx.fillStyle = "white";
     ctx.textBaseline = "top";
@@ -63,11 +56,11 @@ class Demo implements Projected {
     return false;
   }
 
-  unmount(projector: Projector): void {}
+  unmount(_: Projector): void {}
 
-  contextChanged(projector: Projector, isLost: boolean): void {}
+  contextChanged(): void {}
 
-  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {}
+  setOnScheduleUpdate(): void {}
 }
 
 class BG implements Projected {
@@ -77,11 +70,11 @@ class BG implements Projected {
     this._content = new Map();
   }
 
-  tick(elapsed: number): boolean {
+  tick(_: number): boolean {
     return false;
   }
 
-  paint(projector: Projector, timeout?: number): boolean {
+  paint(): boolean {
     return false;
   }
 
@@ -97,11 +90,11 @@ class BG implements Projected {
     return false;
   }
 
-  unmount(projector: Projector): void {}
+  unmount(_: Projector): void {}
 
-  contextChanged(projector: Projector, isLost: boolean): void {}
+  contextChanged(): void {}
 
-  setOnScheduleUpdate(listener: () => void, listenerObj?: object): void {}
+  setOnScheduleUpdate(): void {}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
