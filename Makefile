@@ -75,6 +75,9 @@ dist/parsegraph-$(DIST_NAME).demo.js: package.json package-lock.json $(SCRIPT_FI
 
 dist-prod/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FILES)
 	npm run build-prod
+	mv -v dist-types/src/* dist-prod/
+	mv dist-prod/index.d.ts dist-prod/parsegraph-node.d.ts
+	mv dist-prod/index.d.ts.map dist-prod/parsegraph-node.d.ts.map
 
 clean:
 	rm -rf dist dist-types dist-prod .nyc_output parsegraph-$(DIST_NAME) parsegraph-$(DIST_NAME)-dev.tgz parsegraph-$(DIST_NAME)-prod.tgz
