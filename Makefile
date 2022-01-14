@@ -2,7 +2,12 @@ DIST_NAME = projector
 
 SCRIPT_FILES = \
 	src/index.ts \
-	src/demo.ts
+	src/demo.ts \
+	src/BasicProjector.ts \
+	src/Projected.ts \
+	src/Projector.ts \
+	src/Projection.ts \
+	src/SharedProjector.ts
 
 all: build lint test coverage esdoc
 
