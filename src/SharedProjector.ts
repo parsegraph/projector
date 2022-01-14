@@ -18,6 +18,14 @@ export default class SharedProjector implements Projector {
     this.container().removeChild(this.getDOMContainer().parentElement);
   }
 
+  width() {
+    return this.shared().width();
+  }
+
+  height() {
+    return this.shared().height();
+  }
+
   container() {
     return this.glProvider().container();
   }

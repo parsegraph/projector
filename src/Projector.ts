@@ -59,6 +59,16 @@ export default interface Projector {
    * Sets up all contexts for this projector.
    */
   render(): boolean;
+
+  /**
+   * Returns the width of the projector, in pixels.
+   */
+  width(): number;
+
+  /**
+   * Returns the height of the projector, in pixels.
+   */
+  height(): number;
 }
 
 /**
