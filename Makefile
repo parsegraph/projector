@@ -1,4 +1,6 @@
 DIST_NAME = projector
+DEMO_PORT = 3000
+DEMO_ROOT =
 
 SCRIPT_FILES = \
 	src/index.ts \
@@ -87,3 +89,15 @@ dist-prod/parsegraph-$(DIST_NAME).js: package.json package-lock.json $(SCRIPT_FI
 clean:
 	rm -rf dist dist-types dist-prod .nyc_output parsegraph-$(DIST_NAME) parsegraph-$(DIST_NAME)-dev.tgz parsegraph-$(DIST_NAME)-prod.tgz
 .PHONY: clean
+
+build-container:
+	podman build . -t parsegraph-$(DIST_NAME)
+.PHONY: build-container
+
+run-container: build-container stop-container
+	podman run -e SITE_ROOT=$(DEMO_ROOT) -w /usr/src/ --name parsegraph-$(DIST_NAME) -it -p$(DEMO_PORT):3000 localhost/parsegraph-$(DIST_NAME):latest npm run demo
+.PHONY: run-container
+
+stop-container:
+	podman stop parsegraph-$(DIST_NAME); podman rm parsegraph-$(DIST_NAME); true
+.PHONY: stop-container
