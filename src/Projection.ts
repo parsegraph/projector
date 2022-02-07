@@ -32,12 +32,6 @@ export default class Projection implements Renderable {
   }
 
   paint(timeout?: number): boolean {
-    if (this.projector().glProvider().gl().isContextLost()) {
-      return;
-    }
-    const shaders = this.projector().glProvider().shaders();
-    shaders.gl = this.projector().glProvider().gl();
-    shaders.timeout = timeout;
     return this.projected().paint(this.projector(), timeout);
   }
 
@@ -59,59 +53,67 @@ export default class Projection implements Renderable {
     }
     const compSize = this._clip;
 
-    const gl = this.projector().glProvider()?.gl();
-    if (gl) {
-      gl.enable(gl.SCISSOR_TEST);
-      gl.scissor(
-        compSize.x(),
-        compSize.y(),
-        compSize.width(),
-        compSize.height()
-      );
-      gl.viewport(
-        compSize.x(),
-        compSize.y(),
-        compSize.width(),
-        compSize.height()
-      );
+    if (this.projector().glProvider().hasGL()) {
+      const gl = this.projector().glProvider()?.gl();
+      if (gl) {
+        gl.enable(gl.SCISSOR_TEST);
+        gl.scissor(
+          compSize.x(),
+          compSize.y(),
+          compSize.width(),
+          compSize.height()
+        );
+        gl.viewport(
+          compSize.x(),
+          compSize.y(),
+          compSize.width(),
+          compSize.height()
+        );
+      }
     }
-    const overlay = this.projector().overlay();
-    if (overlay) {
-      overlay.resetTransform();
-      overlay.save();
-      const height = this.projector().overlayCanvas().height;
-      overlay.beginPath();
-      overlay.moveTo(compSize.x(), height - compSize.y());
-      overlay.lineTo(compSize.x() + compSize.width(), height - compSize.y());
-      overlay.lineTo(
-        compSize.x() + compSize.width(),
-        height - (compSize.y() + compSize.height())
-      );
-      overlay.lineTo(compSize.x(), height - (compSize.y() + compSize.height()));
-      overlay.clip();
-      overlay.translate(
-        compSize.x(),
-        height - compSize.y() - compSize.height()
-      );
+    if (this.projector().hasOverlay()) {
+      const overlay = this.projector().overlay();
+      if (overlay) {
+        overlay.resetTransform();
+        overlay.save();
+        const height = this.projector().overlayCanvas().height;
+        overlay.beginPath();
+        overlay.moveTo(compSize.x(), height - compSize.y());
+        overlay.lineTo(compSize.x() + compSize.width(), height - compSize.y());
+        overlay.lineTo(
+          compSize.x() + compSize.width(),
+          height - (compSize.y() + compSize.height())
+        );
+        overlay.lineTo(compSize.x(), height - (compSize.y() + compSize.height()));
+        overlay.clip();
+        overlay.translate(
+          compSize.x(),
+          height - compSize.y() - compSize.height()
+        );
+      }
     }
-    const domContainer = this.projector().getDOMContainer();
-    if (domContainer) {
-      const container = domContainer.parentElement;
-      container.style.left = compSize.x() + "px";
-      const height = container.clientHeight;
-      container.style.top = height - compSize.y() - compSize.height() + "px";
-      domContainer.style.width = compSize.width() + "px";
-      domContainer.style.height = compSize.height() + "px";
+    if (this.projector().hasDOMContainer()) {
+      const domContainer = this.projector().getDOMContainer();
+      if (domContainer) {
+        const container = domContainer.parentElement;
+        container.style.left = compSize.x() + "px";
+        const height = container.clientHeight;
+        container.style.top = height - compSize.y() - compSize.height() + "px";
+        domContainer.style.width = compSize.width() + "px";
+        domContainer.style.height = compSize.height() + "px";
+      }
     }
   }
 
   removeClip(): void {
-    if (this.projector().overlay()) {
+    if (this.projector().hasOverlay()) {
       this.projector().overlay().restore();
     }
-    const gl = this.projector().glProvider()?.gl();
-    if (gl) {
-      gl.disable(gl.SCISSOR_TEST);
+    if (this.projector().glProvider().hasGL()) {
+      const gl = this.projector().glProvider()?.gl();
+      if (gl) {
+        gl.disable(gl.SCISSOR_TEST);
+      }
     }
   }
 
