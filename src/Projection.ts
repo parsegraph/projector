@@ -19,7 +19,6 @@ export default class Projection implements Renderable {
     this._clip = null;
 
     this.projected().setOnScheduleUpdate(this.scheduleUpdate, this);
-    this.projector().setOnScheduleUpdate(this.scheduleUpdate, this);
   }
 
   setClip(clip: Rect) {
