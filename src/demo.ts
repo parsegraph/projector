@@ -1,6 +1,5 @@
 console.log("DEMO!");
 
-import Color from "parsegraph-color";
 import TimingBelt from "parsegraph-timingbelt";
 import BasicProjector from "./BasicProjector";
 import Projection from "./Projection";
@@ -106,12 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
 
   // Background
-  let projector = new BasicProjector(new Color(0, 0, 0, 1));
+  let projector = new BasicProjector();
   document.getElementById("root").appendChild(projector.container());
   belt.addRenderable(new Projection(projector, new BG()));
 
   // Objects
-  projector = new BasicProjector(new Color(0, 0, 0, 0));
+  projector = new BasicProjector();
   document.getElementById("root").appendChild(projector.container());
 
   const demo = new Demo();

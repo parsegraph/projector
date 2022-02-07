@@ -8,6 +8,11 @@ export default interface Projector {
   glProvider(): GLProvider;
 
   /**
+   * Returns true if this projector has a 2D overlay.
+   */
+  hasOverlay(): boolean;
+
+  /**
    * Returns the 2D canvas context for this projector.
    */
   overlay(): CanvasRenderingContext2D;
@@ -16,6 +21,11 @@ export default interface Projector {
    * Returns the 2D canvas HTML element for this projector. The 2D canvas will be clipped.
    */
   overlayCanvas(): HTMLCanvasElement;
+
+  /**
+   * Returns true if this Projector has a DOM container.
+   */
+  hasDOMContainer(): boolean;
 
   /**
    * Returns the DOM element that contains child DOM elements. The DOM element will
@@ -39,6 +49,11 @@ export default interface Projector {
    * Returns true if this projector is designed to be offscreen.
    */
   isOffscreen(): boolean;
+
+  /**
+   * Returns true if this projector has an audio context.
+   */
+  hasAudio(): boolean;
 
   /**
    * Returns the audio context for this projector.

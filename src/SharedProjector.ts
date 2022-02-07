@@ -30,6 +30,10 @@ export default class SharedProjector implements Projector {
     return this.glProvider().container();
   }
 
+  hasDOMContainer() {
+    return !!this._domContainer;
+  }
+
   getDOMContainer() {
     return this._domContainer;
   }
@@ -58,12 +62,20 @@ export default class SharedProjector implements Projector {
     return this.shared().textureSize();
   }
 
+  hasOverlay() {
+    return this.shared().hasOverlay();
+  }
+
   overlay() {
     return this.shared().overlay();
   }
 
   overlayCanvas() {
     return this.shared().overlayCanvas();
+  }
+
+  hasAudio() {
+    return this.shared().hasAudio();
   }
 
   audio(): AudioContext {

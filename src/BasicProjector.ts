@@ -110,11 +110,15 @@ export default class BasicProjector implements Projector {
     return this._overlayCanvas;
   }
 
+  hasAudio() {
+    return !!this._audio;
+  }
+
   setAudio(audio: AudioContext) {
     this._audio = audio;
   }
 
-  startAudio() {
+  audio() {
     if (!this._audio) {
       try {
         this._audio = new AudioContext();
@@ -125,10 +129,6 @@ export default class BasicProjector implements Projector {
         throw new Error("AudioContext is not supported");
       }
     }
-    return this.audio();
-  }
-
-  audio(): AudioContext {
     return this._audio;
   }
 
@@ -153,6 +153,14 @@ export default class BasicProjector implements Projector {
 
   height() {
     return this.glProvider().height();
+  }
+
+  hasOverlay() {
+    return !!this._overlayCanvas;
+  }
+
+  hasDOMContainer() {
+    return !!this._domContainer;
   }
 
   render(): boolean {
