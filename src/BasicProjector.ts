@@ -166,7 +166,6 @@ export default class BasicProjector implements Projector {
   render(): boolean {
     this._overlayCanvas.width = this.width();
     this._overlayCanvas.height = this.height();
-    this._overlayCtx.clearRect(0, 0, this.width(), this.height());
     let needsUpdate = false;
     needsUpdate = this.glProvider().render() || needsUpdate;
     return needsUpdate;
