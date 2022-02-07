@@ -29,10 +29,9 @@ export default interface Projected {
   unmount(projector: Projector): void;
 
   /**
-   * Notify this projected that the GL context has been lost or
-   * gained.
+   * Removes all data from all projectors.
    */
-  contextChanged(projector: Projector, isLost: boolean): void;
+  dispose(): void;
 
   /**
    * Sets the listener for this projected, to be notified when

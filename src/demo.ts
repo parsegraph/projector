@@ -61,6 +61,9 @@ class Demo implements Projected {
   contextChanged(): void {}
 
   setOnScheduleUpdate(): void {}
+
+  dispose() {}
+
 }
 
 class BG implements Projected {
@@ -91,6 +94,8 @@ class BG implements Projected {
   }
 
   unmount(_: Projector): void {}
+
+  dispose() {}
 
   contextChanged(): void {}
 
