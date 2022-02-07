@@ -4,9 +4,10 @@ export default interface Projected {
   /**
    * Runs the render loop for this projected element.
    *
+   * @param {number} cycleTime is the timestamp of this cycle.
    * @returns {boolean} true if the projected has changed
    */
-  tick(elapsed: number): boolean;
+  tick(cycleTime: number): boolean;
 
   /**
    * Commits this projected element to the given projector.
