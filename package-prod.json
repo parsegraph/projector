@@ -15,17 +15,16 @@
   },
   "homepage": "https://github.com/parsegraph/projector#readme",
   "dependencies": {
-    "parsegraph-color": "^1.4.4",
-    "parsegraph-compileprogram": "^2.1.1",
-    "parsegraph-matrix": "^1.4.7",
+    "parsegraph-color": "^1.4.5",
+    "parsegraph-compileprogram": "^2.2.1",
+    "parsegraph-matrix": "^1.4.8",
     "parsegraph-method": "^1.4.10",
-    "parsegraph-normalizewheel": "^1.4.4",
-    "parsegraph-timingbelt": "^1.6.1",
+    "parsegraph-timingbelt": "^1.7.0",
     "parsegraph-rect": "^1.4.5",
     "parsegraph-timing": "^1.4.8"
   },
   "peerDependencies": {
     "parsegraph-log": "^1.6.1",
-    "parsegraph-checkglerror": "^1.5.0"
+    "parsegraph-checkglerror": "^1.5.1"
   }
 }

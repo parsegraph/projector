@@ -148,4 +148,8 @@ export default class Projection implements Renderable {
     this._schedulerFunc = schedulerFunc;
     this._schedulerFuncThisArg = schedulerFuncThisArg;
   }
+
+  unmount() {
+    this.projected().unmount(this.projector());
+  }
 }

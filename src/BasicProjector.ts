@@ -15,7 +15,6 @@ export const BACKGROUND_COLOR = new Color(
   // 45/255, 84/255, 127/255, 1
 );
 
-let projectorCount = 0;
 export default class BasicProjector implements Projector {
   _glProvider: BasicGLProvider;
   _audio: AudioContext;
@@ -26,12 +25,8 @@ export default class BasicProjector implements Projector {
   _schedulerFunc: () => void;
   _schedulerFuncThisArg: object;
 
-  constructor(backgroundColor?: Color) {
-    const glProvider = new BasicGLProvider(
-      "Projector " + ++projectorCount,
-      backgroundColor || BACKGROUND_COLOR
-    );
-    this._glProvider = glProvider;
+  constructor() {
+    this._glProvider = new BasicGLProvider();
     this._textureSize = NaN;
     this._schedulerFunc = null;
     this._schedulerFuncThisArg = null;
