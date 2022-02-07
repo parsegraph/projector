@@ -62,7 +62,6 @@ class Demo implements Projected {
   setOnScheduleUpdate(): void {}
 
   dispose() {}
-
 }
 
 class BG implements Projected {

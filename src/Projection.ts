@@ -83,7 +83,10 @@ export default class Projection implements Renderable {
           compSize.x() + compSize.width(),
           height - (compSize.y() + compSize.height())
         );
-        overlay.lineTo(compSize.x(), height - (compSize.y() + compSize.height()));
+        overlay.lineTo(
+          compSize.x(),
+          height - (compSize.y() + compSize.height())
+        );
         overlay.clip();
         overlay.translate(
           compSize.x(),
