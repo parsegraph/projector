@@ -9,9 +9,6 @@ export default class SharedProjector implements Projector {
 
   constructor(shared: Projector) {
     this._shared = shared;
-
-    this._domContainer = createDOMContainer();
-    this.container().appendChild(this._domContainer.parentElement);
   }
 
   unmount() {
@@ -34,7 +31,15 @@ export default class SharedProjector implements Projector {
     return !!this._domContainer;
   }
 
+  protected createDOMContainer(): HTMLDivElement {
+    return createDOMContainer();
+  }
+
   getDOMContainer() {
+    if (!this._domContainer) {
+      this._domContainer = this.createDOMContainer();
+      this.container().appendChild(this._domContainer.parentElement);
+    }
     return this._domContainer;
   }
 

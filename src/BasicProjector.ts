@@ -37,19 +37,6 @@ export default class BasicProjector implements Projector {
     glContainer.style.display = "block";
     glContainer.style.position = "relative";
     glContainer.style.overflow = "hidden";
-    this.glProvider().canvas().style.display = "block";
-
-    // Setup 2D layer
-    this._overlayCanvas = document.createElement("canvas");
-    this._overlayCanvas.style.position = "absolute";
-    this._overlayCanvas.style.top = "0";
-    this._overlayCanvas.style.left = "0";
-    this._overlayCanvas.style.pointerEvents = "none";
-    this._overlayCtx = this._overlayCanvas.getContext("2d");
-    this.container().appendChild(this._overlayCanvas);
-
-    this._domContainer = createDOMContainer();
-    this.container().appendChild(this._domContainer.parentElement);
 
     // Observe root container for size changes.
     new ResizeObserver(() => {
@@ -57,11 +44,32 @@ export default class BasicProjector implements Projector {
     }).observe(this.container());
   }
 
+  createOverlay() {
+    return this.overlayCanvas().getContext("2d");
+  }
+
+  createOverlayCanvas() {
+    const overlayCanvas = document.createElement("canvas");
+    overlayCanvas.style.position = "absolute";
+    overlayCanvas.style.top = "0";
+    overlayCanvas.style.left = "0";
+    overlayCanvas.style.pointerEvents = "none";
+    return overlayCanvas;
+  }
+
   container() {
     return this.glProvider().container();
   }
 
+  protected createDOMContainer():HTMLDivElement {
+    return createDOMContainer();
+  }
+
   getDOMContainer() {
+    if (!this._domContainer) {
+      this._domContainer = this.createDOMContainer();
+      this.container().appendChild(this._domContainer.parentElement);
+    }
     return this._domContainer;
   }
 
@@ -103,10 +111,18 @@ export default class BasicProjector implements Projector {
   }
 
   overlay() {
+    if (!this._overlayCtx) {
+      this._overlayCtx = this.createOverlay();
+    }
+
     return this._overlayCtx;
   }
 
   overlayCanvas() {
+    if (!this._overlayCanvas) {
+      this._overlayCanvas = this.createOverlayCanvas();
+      this.container().appendChild(this._overlayCanvas);
+    }
     return this._overlayCanvas;
   }
 
@@ -164,8 +180,13 @@ export default class BasicProjector implements Projector {
   }
 
   render(): boolean {
-    this._overlayCanvas.width = this.width();
-    this._overlayCanvas.height = this.height();
+    if (this.hasOverlay()) {
+      this._overlayCanvas.width = this.width();
+      this._overlayCanvas.height = this.height();
+    }
+    if (this.glProvider().hasCanvas()) {
+      this.glProvider().canvas().style.display = "block";
+    }
     let needsUpdate = false;
     needsUpdate = this.glProvider().render() || needsUpdate;
     return needsUpdate;
