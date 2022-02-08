@@ -181,11 +181,18 @@ export default class BasicProjector implements Projector {
 
   render(): boolean {
     if (this.hasOverlay()) {
-      this._overlayCanvas.width = this.width();
-      this._overlayCanvas.height = this.height();
+      const canvas = this.overlayCanvas();
+      if (canvas.width != this.width()) {
+        canvas.width = this.width();
+      }
+      if (canvas.height != this.height()) {
+        canvas.height = this.height();
+      }
     }
     if (this.glProvider().hasCanvas()) {
-      this.glProvider().canvas().style.display = "block";
+      if (this.glProvider().canvas().style.display != "block") {
+        this.glProvider().canvas().style.display = "block";
+      }
     }
     let needsUpdate = false;
     needsUpdate = this.glProvider().render() || needsUpdate;
