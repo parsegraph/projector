@@ -31,12 +31,11 @@ export default class BasicProjector implements Projector {
     this._schedulerFunc = null;
     this._schedulerFuncThisArg = null;
 
-    // Setup 3D layer
-    const glContainer = this.glProvider().container();
-    glContainer.className = "parsegraph_Window";
-    glContainer.style.display = "block";
-    glContainer.style.position = "relative";
-    glContainer.style.overflow = "hidden";
+    const container = this.container();
+    container.className = "parsegraph_Window";
+    container.style.display = "block";
+    container.style.position = "relative";
+    container.style.overflow = "hidden";
 
     // Observe root container for size changes.
     new ResizeObserver(() => {
