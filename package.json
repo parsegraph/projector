@@ -73,7 +73,7 @@
     "parsegraph-compileprogram": "^2.2.1",
     "parsegraph-matrix": "^1.4.8",
     "parsegraph-method": "^1.4.10",
-    "parsegraph-timingbelt": "^1.7.0",
+    "parsegraph-timingbelt": "^1.7.1",
     "parsegraph-rect": "^1.4.5",
     "parsegraph-timing": "^1.4.8",
     "prettier": "2.1.2",
