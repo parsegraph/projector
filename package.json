@@ -2,8 +2,8 @@
   "name": "parsegraph-projector",
   "version": "1.7.4",
   "description": "projector",
-  "main": "dist/parsegraph-projector.js",
-  "types": "dist/projector.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "coverage": "nyc npm run test",
     "test": "cross-env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha",
