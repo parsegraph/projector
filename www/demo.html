@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>projector</title>
-  <style>
-      body {
-          margin: 0;
-          padding: 0;
-      }
-      .parsegraph_Window {
-          width: 100%;
-          height: 100%;
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>projector</title>
+    <script src="parsegraph-log.js"></script>
+    <script>
+        parsegraph_log.connectLog("wss://fritocomp.aaronfaanes/log");
+    </script>
+    <script src="parsegraph-checkglerror.js"></script>
+    <script>
+        parsegraph_checkglerror.setIgnoreGLErrors(true);
+    </script>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#root {
+    width: 50vw;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#root > * {
+    grid-row-start: 1;
+    grid-column-start: 1;
+}
+
+.parsegraph_Window {
+    width: 100%;
+    height: 100%;
+}
+</style>
 </head>
 <body>
-    <div style="width: 100vw; height: 100vh">
-        <div style="width: 100%; height: 100%" id="demo"></div>
-    </div>
+    <main id="root"></main>
+    <button id="schedule-update">Schedule Update</button>
     <script src="src/demo.js"></script>
 </body>
 </html>
