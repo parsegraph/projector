@@ -1,11 +1,18 @@
 const glob = require("glob");
-
 const express = require("express");
 const app = express();
+const { readFileSync, statSync } = require("fs");
 
-const name = "projector";
+const { DIST_NAME } = require("../webpack.common");
 
 const getPort = (port) => {
+  if (statSync("../demo.port")) {
+    try {
+      port = parseInt(readFileSync("../demo.port"));
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
   if (process.env.SITE_PORT) {
     try {
       port = parseInt(process.env.SITE_PORT);
@@ -37,7 +44,7 @@ const root = getRootPath();
 
 async function getDemos() {
   return new Promise((respond, reject) => {
-    glob("www/*.html", {}, function (err, files) {
+    glob("../www/*.html", {}, function (err, files) {
       if (err) {
         reject(err);
       }
@@ -62,14 +69,14 @@ app.get(root, async (req, res) => {
   write(`<!DOCTYPE html>`);
   write(`<html>`);
   write(`<head>`);
-  write(`<title>${name}</title>`);
+  write(`<title>${DIST_NAME}</title>`);
   write(`</head>`);
   write(`<body>`);
   write(
-    `<h1>${name} <a href='${root}/coverage'>Coverage</a> <a href='${root}/docs'>Docs</a></h1>`
+    `<h1>${DIST_NAME} <a href='${root}/coverage/lcov-report/'>Coverage</a> <a href='${root}/docs'>Docs</a></h1>`
   );
   write(
-    `<p>This library is available as JavaScript UMD module: <a href='${root}/parsegraph-${name}.lib.js'>parsegraph-${name}.lib.js</a></p>`
+    `<p>This library is available as a <a href="${root}/src/index.js">JavaScript UMD module</a></p>`
   );
   write(`<h2>Samples &amp; Demos</h2>`);
   write(`<ul>`);
@@ -83,12 +90,12 @@ app.get(root, async (req, res) => {
   res.end(resp);
 });
 
-app.use(root, express.static("./src"));
-app.use(root, express.static("./dist"));
-app.use(root, express.static("./www"));
+app.use(root, express.static("../src"));
+app.use(root, express.static("../dist"));
+app.use(root, express.static("../www"));
 
 app.listen(port, () => {
   console.log(
-    `See ${name} build information at http://localhost:${port}${root}`
+    `See ${DIST_NAME} build information at http://localhost:${port}${root}`
   );
 });
