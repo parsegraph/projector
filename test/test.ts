@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { BasicProjector } from "../src/index.lib";
+import { BasicProjector } from "../src/index";
 import Color from "parsegraph-color";
 
 describe("Package", function () {
