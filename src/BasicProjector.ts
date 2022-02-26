@@ -60,7 +60,7 @@ export default class BasicProjector implements Projector {
     return this.glProvider().container();
   }
 
-  protected createDOMContainer():HTMLDivElement {
+  protected createDOMContainer(): HTMLDivElement {
     return createDOMContainer();
   }
 
