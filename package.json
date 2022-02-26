@@ -74,7 +74,7 @@
   },
   "peerDependencies": {
     "parsegraph-checkglerror": "^1.5.1",
-    "parsegraph-log": "^1.7.0"
+    "parsegraph-log": "^1.7.2"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
