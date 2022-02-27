@@ -5,68 +5,95 @@ import { setVFlip } from "parsegraph-matrix";
 export const MAX_TEXTURE_SIZE = 2048;
 
 export default class BasicProjector implements Projector {
-  _glProvider: BasicGLProvider;
-  _audio: AudioContext;
-  _textureSize: number;
-  _overlayCanvas: HTMLCanvasElement;
-  _overlayCtx: CanvasRenderingContext2D;
-  _domContainer: HTMLDivElement;
-  _schedulerFunc: () => void;
-  _schedulerFuncThisArg: object;
+  private _glProvider: GLProvider;
+  private _textureSize: number;
+  private _schedulerFunc: () => void;
+  private _schedulerFuncThisArg: object;
+  private _audio: AudioContext;
+  private _overlayCanvas: HTMLCanvasElement;
+  private _overlayCtx: CanvasRenderingContext2D;
+  private _domContainer: HTMLDivElement;
+  private _container: HTMLElement;
 
-  constructor() {
-    this._glProvider = new BasicGLProvider();
+  constructor(glProvider?: GLProvider) {
+    this._glProvider = null;
     this._textureSize = NaN;
     this._schedulerFunc = null;
     this._schedulerFuncThisArg = null;
+    this._audio = null;
+    this._overlayCtx = null;
+    this._overlayCanvas = null;
+    this._domContainer = null;
+    this._container = null;
 
-    const container = this.container();
-    container.className = "parsegraph_Window";
-    container.style.display = "block";
-    container.style.position = "relative";
-    container.style.overflow = "hidden";
-
-    // Observe root container for size changes.
-    new ResizeObserver(() => {
-      this.scheduleUpdate();
-    }).observe(this.container());
+    if (glProvider) {
+      this.setGLProvider(glProvider);
+    }
   }
 
-  createOverlay() {
-    return this.overlayCanvas().getContext("2d");
+  protected setGLProvider(glProvider: GLProvider) {
+    this._glProvider = glProvider;
   }
 
-  createOverlayCanvas() {
-    const overlayCanvas = document.createElement("canvas");
-    overlayCanvas.style.position = "absolute";
-    overlayCanvas.style.top = "0";
-    overlayCanvas.style.left = "0";
-    overlayCanvas.style.pointerEvents = "none";
-    return overlayCanvas;
+  protected createGLProvider() {
+    return new BasicGLProvider();
   }
 
-  container() {
+  protected setOverlay(overlay: CanvasRenderingContext2D) {
+    this._overlayCtx = overlay;
+  }
+
+  overlay() {
+    if (!this._overlayCtx) {
+      const overlay = this.createOverlay();
+      if (overlay) {
+        this.setOverlay(overlay);
+      }
+    }
+
+    return this._overlayCtx;
+  }
+
+  protected createContainer() {
     return this.glProvider().container();
   }
 
-  protected createDOMContainer(): HTMLDivElement {
-    return createDOMContainer();
+  protected setContainer(container: HTMLElement) {
+    this._container = container;
   }
 
-  getDOMContainer() {
-    if (!this._domContainer) {
-      this._domContainer = this.createDOMContainer();
-      this.container().appendChild(this._domContainer.parentElement);
+  container() {
+    if (!this._container) {
+      const container = this.createContainer();
+      if (container) {
+        container.className = "parsegraph_Window " + container.className;
+        container.style.display = "block";
+        container.style.position = "relative";
+        container.style.overflow = "hidden";
+
+        // Observe root container for size changes.
+        new ResizeObserver(() => {
+          this.scheduleUpdate();
+        }).observe(container);
+        this.setContainer(container);
+      }
     }
-    return this._domContainer;
+    return this._container;
   }
 
-  getProvider(): GLProvider {
-    return this._glProvider;
+  setOverlayCanvas(canvas: HTMLCanvasElement) {
+    this._overlayCanvas = canvas;
   }
 
-  isOffscreen(): boolean {
-    return false;
+  overlayCanvas() {
+    if (!this._overlayCanvas) {
+      const canvas = this.createOverlayCanvas();
+      if (canvas) {
+        this.container().appendChild(canvas);
+        this.setOverlayCanvas(canvas);
+      }
+    }
+    return this._overlayCanvas;
   }
 
   /**
@@ -75,11 +102,38 @@ export default class BasicProjector implements Projector {
    * @param {string} cursorType CSS cursor style
    */
   setCursor(cursorType: string): void {
-    this.glProvider().canvas().style.cursor = cursorType;
+    let elem: HTMLElement;
+    if (this.glProvider() && this.glProvider().canvas()) {
+      elem = this.glProvider().canvas();
+    } else if (this.overlayCanvas()) {
+      elem = this.overlayCanvas();
+    } else {
+      elem = this.getDOMContainer();
+    }
+    elem.style.cursor = cursorType;
   }
 
-  glProvider() {
-    return this._glProvider;
+  protected setAudio(audio: AudioContext) {
+    this._audio = audio;
+  }
+
+  protected createAudio() {
+    return new AudioContext();
+  }
+
+  audio() {
+    if (!this._audio) {
+      try {
+        this._audio = this.createAudio();
+      } catch (ex) {
+        console.log("Error creating audio", ex);
+      }
+    }
+    return this._audio;
+  }
+
+  hasAudio() {
+    return !!this._audio;
   }
 
   getTextureSize(): number {
@@ -98,42 +152,62 @@ export default class BasicProjector implements Projector {
     return this._textureSize;
   }
 
-  overlay() {
-    if (!this._overlayCtx) {
-      this._overlayCtx = this.createOverlay();
-    }
-
-    return this._overlayCtx;
+  createOverlay() {
+    return this.overlayCanvas().getContext("2d");
   }
 
-  overlayCanvas() {
-    if (!this._overlayCanvas) {
-      this._overlayCanvas = this.createOverlayCanvas();
-      this.container().appendChild(this._overlayCanvas);
-    }
-    return this._overlayCanvas;
+  protected createOverlayCanvas() {
+    const overlayCanvas = document.createElement("canvas");
+    overlayCanvas.style.position = "absolute";
+    overlayCanvas.style.top = "0";
+    overlayCanvas.style.left = "0";
+    overlayCanvas.style.pointerEvents = "none";
+    return overlayCanvas;
   }
 
-  hasAudio() {
-    return !!this._audio;
+  protected setDOMContainer(domContainer: HTMLDivElement) {
+    this._domContainer = domContainer;
   }
 
-  setAudio(audio: AudioContext) {
-    this._audio = audio;
+  protected createDOMContainer(): HTMLDivElement {
+    return createDOMContainer();
   }
 
-  audio() {
-    if (!this._audio) {
-      try {
-        this._audio = new AudioContext();
-      } catch (ex) {
-        console.log(ex);
-      }
-      if (this._audio == null) {
-        throw new Error("AudioContext is not supported");
+  getDOMContainer() {
+    if (!this._domContainer) {
+      const container = this.createDOMContainer();
+      if (container) {
+        this.setDOMContainer(container);
+        this.container().appendChild(this._domContainer.parentElement);
       }
     }
-    return this._audio;
+    return this._domContainer;
+  }
+
+  glProvider() {
+    if (!this._glProvider) {
+      const glProvider = this.createGLProvider();
+      if (glProvider) {
+        this.setGLProvider(glProvider);
+      }
+    }
+    return this._glProvider;
+  }
+
+  width() {
+    return this.glProvider().width();
+  }
+
+  height() {
+    return this.glProvider().height();
+  }
+
+  hasOverlay() {
+    return !!this._overlayCanvas;
+  }
+
+  hasDOMContainer() {
+    return !!this._domContainer;
   }
 
   scheduleUpdate() {
@@ -151,20 +225,8 @@ export default class BasicProjector implements Projector {
     this._schedulerFuncThisArg = schedulerFuncThisArg;
   }
 
-  width() {
-    return this.glProvider().width();
-  }
-
-  height() {
-    return this.glProvider().height();
-  }
-
-  hasOverlay() {
-    return !!this._overlayCanvas;
-  }
-
-  hasDOMContainer() {
-    return !!this._domContainer;
+  isOffscreen(): boolean {
+    return false;
   }
 
   render(): boolean {
