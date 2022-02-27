@@ -1,19 +1,7 @@
 import Projector, { createDOMContainer } from "./Projector";
 import { GLProvider, BasicGLProvider } from "parsegraph-compileprogram";
-import Color from "parsegraph-color";
 
 export const MAX_TEXTURE_SIZE = 2048;
-
-// Background color.
-export const BACKGROUND_COLOR = new Color(
-  // 0, 47 / 255, 57 / 255, 1,
-  // 256/255, 255/255, 255/255, 1
-  0,
-  0,
-  0,
-  1
-  // 45/255, 84/255, 127/255, 1
-);
 
 export default class BasicProjector implements Projector {
   _glProvider: BasicGLProvider;
