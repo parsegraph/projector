@@ -1,5 +1,6 @@
 import Projector, { createDOMContainer } from "./Projector";
 import { GLProvider, BasicGLProvider } from "parsegraph-compileprogram";
+import { setVFlip } from "parsegraph-matrix";
 
 export const MAX_TEXTURE_SIZE = 2048;
 
@@ -167,6 +168,7 @@ export default class BasicProjector implements Projector {
   }
 
   render(): boolean {
+    setVFlip(this.isOffscreen());
     if (this.hasOverlay()) {
       const canvas = this.overlayCanvas();
       if (canvas.width != this.width()) {
