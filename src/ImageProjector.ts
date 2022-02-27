@@ -9,11 +9,12 @@ export default class ImageProjector extends BasicProjector {
 
   private _explicitWidth: number;
   private _explicitHeight: number;
+  private _scale: number;
 
   private _fb: WebGLFramebuffer;
   private _targetTexture: WebGLTexture;
 
-  constructor(width: number, height: number) {
+  constructor(width: number, height: number, scale:number = 1.0) {
     super(new BasicGLProvider());
     if (!width || !height) {
       throw new Error(
@@ -22,6 +23,8 @@ export default class ImageProjector extends BasicProjector {
     }
 
     this._needsUpdate = true;
+
+    this._scale = scale;
 
     this.setExplicitSize(width, height);
     this._imageCanvas = null;
@@ -44,24 +47,20 @@ export default class ImageProjector extends BasicProjector {
     (this.glProvider() as BasicGLProvider).setExplicitSize(w, h);
   }
 
-  upscale() {
-    return 2;
+  scale() {
+    return this._scale;
   }
 
-  getWidth() {
-    return this._explicitWidth * this.upscale();
+  setScale(scale:number) {
+    this._scale = scale;
   }
 
   width() {
-    return this.getWidth();
-  }
-
-  getHeight() {
-    return this._explicitHeight * this.upscale();
+    return this._explicitWidth;
   }
 
   height() {
-    return this.getHeight();
+    return this._explicitHeight;
   }
 
   render() {
@@ -161,17 +160,32 @@ export default class ImageProjector extends BasicProjector {
     context.drawImage(this.overlayCanvas(), 0, 0);
 
     const cont = document.createElement("div");
+    cont.style.display = "inline-block";
+    cont.style.position = "relative";
+    cont.style.width = Math.floor(this.scale() * this._explicitWidth) + "px";
+    cont.style.height = Math.floor(this.scale() * this._explicitHeight) + "px";
+    cont.style.overflow = "hidden";
 
     const image = new Image();
+    image.style.position = "absolute";
+    image.style.left = "0px";
+    image.style.top = "0px";
     image.style.width = Math.floor(this._explicitWidth) + "px";
     image.style.height = Math.floor(this._explicitHeight) + "px";
+    image.style.transformOrigin = "top left";
+    image.style.transform = `scale(${this.scale()})`;
     image.src = canvas.toDataURL();
     cont.appendChild(image);
 
     const domCont = document.createElement("div");
+    domCont.style.position = "absolute";
+    domCont.style.left = "0px";
+    domCont.style.top = "0px";
     domCont.style.width = Math.floor(this._explicitWidth) + "px";
     domCont.style.height = Math.floor(this._explicitHeight) + "px";
-    domCont.innerHTML = this.getDOMContainer()?.innerHTML;
+    domCont.style.transformOrigin = "top left";
+    domCont.style.transform = `scale(${this.scale()})`;
+    domCont.innerHTML = this.container().innerHTML;
     cont.appendChild(domCont);
 
     return cont;
