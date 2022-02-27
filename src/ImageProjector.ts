@@ -158,6 +158,8 @@ export default class ImageProjector extends BasicProjector {
     imageData.data.set(data);
     context.putImageData(imageData, 0, 0);
 
+    context.drawImage(this.overlayCanvas(), 0, 0);
+
     const cont = document.createElement("div");
 
     const image = new Image();
