@@ -39,6 +39,9 @@ export default class ImageProjector extends BasicProjector {
   setExplicitSize(w: number, h: number) {
     this._explicitWidth = w;
     this._explicitHeight = h;
+    this. imageCanvas().width = w;
+    this. imageCanvas().height = h;
+    (this.glProvider() as BasicGLProvider).setExplicitSize(w, h);
   }
 
   upscale() {
