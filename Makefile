@@ -3,6 +3,8 @@ DIST_NAME = projector
 SCRIPT_FILES = \
 	src/index.ts \
 	src/Projected.ts \
+	src/ImageProjector.ts \
+	src/screenshot.ts \
 	src/SharedProjector.ts \
 	src/BasicProjector.ts \
 	src/Projection.ts \
