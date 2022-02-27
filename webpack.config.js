@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     lib: relDir("src/index.ts"),
     demo: relDir("src/demo.ts"),
+    screenshot: relDir("src/screenshot.ts"),
   },
   ...webpackConfig(false),
 };
