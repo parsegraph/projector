@@ -14,7 +14,7 @@ export default class ImageProjector extends BasicProjector {
   private _fb: WebGLFramebuffer;
   private _targetTexture: WebGLTexture;
 
-  constructor(width: number, height: number, scale:number = 1.0) {
+  constructor(width: number, height: number, scale: number = 1.0) {
     super(new BasicGLProvider());
     if (!width || !height) {
       throw new Error(
@@ -42,8 +42,8 @@ export default class ImageProjector extends BasicProjector {
   setExplicitSize(w: number, h: number) {
     this._explicitWidth = w;
     this._explicitHeight = h;
-    this. imageCanvas().width = w;
-    this. imageCanvas().height = h;
+    this.imageCanvas().width = w;
+    this.imageCanvas().height = h;
     (this.glProvider() as BasicGLProvider).setExplicitSize(w, h);
   }
 
@@ -51,7 +51,7 @@ export default class ImageProjector extends BasicProjector {
     return this._scale;
   }
 
-  setScale(scale:number) {
+  setScale(scale: number) {
     this._scale = scale;
   }
 

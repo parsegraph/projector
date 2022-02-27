@@ -45,9 +45,9 @@ class Demo implements Projected {
     if (this._boxPos) {
       const div = this._content.get(projector);
       div.style.display = "initial";
-      div.style.transform = `translate(${Math.round(
-        this._boxPos[0]
-      )}px, ${this._boxPos[1]}px)`;
+      div.style.transform = `translate(${Math.round(this._boxPos[0])}px, ${
+        this._boxPos[1]
+      }px)`;
       div.style.transformOrigin = "top left";
     }
 
@@ -58,10 +58,7 @@ class Demo implements Projected {
       ctx.font = "16px serif";
       ctx.fillStyle = "white";
       ctx.textBaseline = "top";
-      ctx.fillText(
-        "2D Canvas.",
-        ...this._textPos
-      );
+      ctx.fillText("2D Canvas.", ...this._textPos);
     }
     return false;
   }
@@ -87,11 +84,7 @@ class BG implements Projected {
   }
 
   shuffle() {
-    this._color = [
-      Math.random(),
-      Math.random(),
-      Math.random()
-    ];
+    this._color = [Math.random(), Math.random(), Math.random()];
   }
 
   paint(): boolean {
