@@ -99,7 +99,7 @@ export default class Projection implements Renderable {
       if (domContainer) {
         const container = domContainer.parentElement;
         container.style.left = compSize.x() + "px";
-        const height = container.clientHeight;
+        const height = this.projector().height();
         container.style.top = height - compSize.y() - compSize.height() + "px";
         domContainer.style.width = compSize.width() + "px";
         domContainer.style.height = compSize.height() + "px";
