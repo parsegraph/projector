@@ -15,7 +15,6 @@
   },
   "homepage": "https://github.com/parsegraph/projector#readme",
   "dependencies": {
-    "parsegraph-color": "^1.4.6",
     "parsegraph-compileprogram": "^2.2.3",
     "parsegraph-matrix": "^1.4.10",
     "parsegraph-method": "^1.4.10",
