@@ -1,6 +1,7 @@
 import Projector, { createDOMContainer } from "./Projector";
 import { GLProvider, BasicGLProvider } from "parsegraph-compileprogram";
 import { setVFlip } from "parsegraph-matrix";
+import ResizeObserver from 'resize-observer-polyfill';
 
 export const MAX_TEXTURE_SIZE = 2048;
 
