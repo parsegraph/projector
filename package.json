@@ -19,7 +19,7 @@
     "parsegraph-matrix": "^1.4.10",
     "parsegraph-method": "^1.4.10",
     "parsegraph-rect": "^1.4.6",
-    "parsegraph-timing": "^1.4.9",
+    "parsegraph-timing": "^1.4.10",
     "parsegraph-timingbelt": "^1.7.3"
   },
   "devDependencies": {
