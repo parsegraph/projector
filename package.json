@@ -20,7 +20,7 @@
     "parsegraph-method": "^1.4.10",
     "parsegraph-rect": "^1.4.7",
     "parsegraph-timing": "^1.4.16",
-    "parsegraph-timingbelt": "^1.7.10"
+    "parsegraph-timingbelt": "^1.7.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
