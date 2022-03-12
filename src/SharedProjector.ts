@@ -12,7 +12,7 @@ export default class SharedProjector implements Projector {
   }
 
   unmount() {
-    this.container().removeChild(this.getDOMContainer().parentElement);
+    this.resetDOM();
   }
 
   width() {
@@ -31,13 +31,16 @@ export default class SharedProjector implements Projector {
     return !!this._domContainer;
   }
 
-  protected createDOMContainer(): HTMLDivElement {
-    return createDOMContainer();
+  resetDOM() {
+    if (this._domContainer) {
+      this.container().removeChild(this.getDOMContainer().parentElement);
+    }
+    this._domContainer = null;
   }
 
   getDOMContainer() {
     if (!this._domContainer) {
-      this._domContainer = this.createDOMContainer();
+      this._domContainer = createDOMContainer();
       this.container().appendChild(this._domContainer.parentElement);
     }
     return this._domContainer;
