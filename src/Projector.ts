@@ -38,7 +38,7 @@ export default interface Projector {
    *
    * @param {string} cursorType CSS cursor style
    */
-  setCursor(cursor: string): void;
+  setCursor(cursorType: string): void;
 
   /**
    * Returns the optimal texture size for this projector.
