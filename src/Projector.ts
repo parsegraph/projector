@@ -104,7 +104,6 @@ export function createDOMContainer(): HTMLDivElement {
 
   const childContainer = document.createElement("div");
   childContainer.style.position = "relative";
-  childContainer.style.overflow = "hidden";
   childContainer.style.width = "100%";
   childContainer.style.height = "100%";
   childContainer.style.pointerEvents = "none";
