@@ -165,9 +165,9 @@ export default class ImageProjector extends BasicProjector {
     image.style.position = "absolute";
     image.style.left = "0px";
     image.style.top = "0px";
-    image.style.width = Math.floor(this._explicitWidth) + "px";
-    image.style.height = Math.floor(this._explicitHeight) + "px";
-    image.style.transform = `scaleY(-1) scale(${this.scale()})`;
+    image.style.width = Math.floor(this.scale() * this._explicitWidth) + "px";
+    image.style.height = Math.floor(this.scale() * this._explicitHeight) + "px";
+    image.style.transform = `scaleY(-1)`;
     image.src = canvas.toDataURL();
     cont.appendChild(image);
 
@@ -177,10 +177,8 @@ export default class ImageProjector extends BasicProjector {
     image.style.position = "absolute";
     image.style.left = "0px";
     image.style.top = "0px";
-    image.style.width = Math.floor(this._explicitWidth) + "px";
-    image.style.height = Math.floor(this._explicitHeight) + "px";
-    image.style.transformOrigin = "top left";
-    image.style.transform = `scale(${this.scale()})`;
+    image.style.width = Math.floor(this.scale() * this._explicitWidth) + "px";
+    image.style.height = Math.floor(this.scale() * this._explicitHeight) + "px";
     image.src = canvas.toDataURL();
     cont.appendChild(image);
 
