@@ -147,13 +147,12 @@ export default class ImageProjector extends BasicProjector {
     gl.deleteFramebuffer(framebuffer);
 
     const context = this.imageContext();
+    context.drawImage(this.overlayCanvas(), 0, 0);
 
     // Copy the pixels to a 2D canvas
     const imageData = context.createImageData(width, height);
     imageData.data.set(data);
     context.putImageData(imageData, 0, 0);
-
-    context.drawImage(gl.canvas, 0, 0, width, height);
 
     const cont = document.createElement("div");
     cont.style.display = "inline-block";
