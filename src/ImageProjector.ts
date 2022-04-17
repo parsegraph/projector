@@ -16,7 +16,6 @@ export default class ImageProjector extends BasicProjector {
 
   constructor(width: number, height: number, scale: number = 1.0) {
     super(new BasicGLProvider());
-    this.setOffscreen(true);
     if (!width || !height) {
       throw new Error(
         "ImageWindow must receive a width and height during construction"
@@ -154,7 +153,7 @@ export default class ImageProjector extends BasicProjector {
     imageData.data.set(data);
     context.putImageData(imageData, 0, 0);
 
-    context.drawImage(this.overlayCanvas(), 0, 0);
+    context.drawImage(gl.canvas, 0, 0, width, height);
 
     const cont = document.createElement("div");
     cont.style.display = "inline-block";
@@ -163,7 +162,19 @@ export default class ImageProjector extends BasicProjector {
     cont.style.height = Math.floor(this.scale() * this._explicitHeight) + "px";
     cont.style.overflow = "hidden";
 
-    const image = new Image();
+    let image = new Image();
+    image.style.position = "absolute";
+    image.style.left = "0px";
+    image.style.top = "0px";
+    image.style.width = Math.floor(this._explicitWidth) + "px";
+    image.style.height = Math.floor(this._explicitHeight) + "px";
+    image.style.transform = `scaleY(-1) scale(${this.scale()})`;
+    image.src = canvas.toDataURL();
+    cont.appendChild(image);
+
+    context.clearRect(0, 0, width, height);
+    context.drawImage(this.overlayCanvas(), 0, 0);
+    image = new Image();
     image.style.position = "absolute";
     image.style.left = "0px";
     image.style.top = "0px";
@@ -182,7 +193,7 @@ export default class ImageProjector extends BasicProjector {
     domCont.style.height = Math.floor(this._explicitHeight) + "px";
     domCont.style.transformOrigin = "top left";
     domCont.style.transform = `scale(${this.scale()})`;
-    domCont.innerHTML = this.container().innerHTML;
+    domCont.innerHTML = this.getDOMContainer().innerHTML;
     cont.appendChild(domCont);
 
     return cont;
