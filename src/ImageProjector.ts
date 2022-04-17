@@ -16,6 +16,7 @@ export default class ImageProjector extends BasicProjector {
 
   constructor(width: number, height: number, scale: number = 1.0) {
     super(new BasicGLProvider());
+    this.setOffscreen(true);
     if (!width || !height) {
       throw new Error(
         "ImageWindow must receive a width and height during construction"
@@ -33,10 +34,6 @@ export default class ImageProjector extends BasicProjector {
 
   gl() {
     return this.glProvider().gl();
-  }
-
-  isOffscreen() {
-    return true;
   }
 
   setExplicitSize(w: number, h: number) {

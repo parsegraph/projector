@@ -3,8 +3,12 @@ import { setVFlip } from "parsegraph-matrix";
 import AbstractProjector from "./AbstractProjector";
 
 export default class BasicProjector extends AbstractProjector {
+  _offscreen: boolean;
+
   constructor(glProvider?: GLProvider) {
     super();
+
+    this._offscreen = false;
 
     if (glProvider) {
       this.setGLProvider(glProvider);
@@ -72,8 +76,12 @@ export default class BasicProjector extends AbstractProjector {
     return this.glProvider().height();
   }
 
+  setOffscreen(offscreen:boolean): void {
+    this._offscreen = offscreen;
+  }
+
   isOffscreen(): boolean {
-    return false;
+    return this._offscreen;
   }
 
   render(): boolean {
