@@ -8,6 +8,11 @@ export default interface Projector {
   glProvider(): GLProvider;
 
   /**
+   * Returns this projector's main container.
+   */
+  container(): HTMLElement;
+
+  /**
    * Returns true if this projector has a 2D overlay.
    */
   hasOverlay(): boolean;

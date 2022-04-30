@@ -24,7 +24,7 @@ export default class SharedProjector implements Projector {
   }
 
   container() {
-    return this.glProvider().container();
+    return this.shared().container();
   }
 
   hasDOMContainer() {
