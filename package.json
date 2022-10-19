@@ -15,9 +15,8 @@
   },
   "homepage": "https://github.com/parsegraph/projector#readme",
   "dependencies": {
-    "parsegraph-compileprogram": "^2.2.15",
+    "parsegraph-compileprogram": "^2.2.16",
     "parsegraph-matrix": "^1.4.12",
-    "parsegraph-timing": "^1.4.16",
     "parsegraph-timingbelt": "^1.7.12"
   },
   "devDependencies": {
@@ -44,6 +43,8 @@
     "jest": "^28.0.3",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
+    "parsegraph-checkglerror": "^1.5.3",
+    "parsegraph-log": "^1.7.3",
     "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "resize-observer-polyfill": "^1.5.1",
