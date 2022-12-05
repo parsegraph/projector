@@ -15,9 +15,9 @@
   },
   "homepage": "https://github.com/parsegraph/projector#readme",
   "dependencies": {
-    "parsegraph-compileprogram": "^2.2.16",
+    "parsegraph-compileprogram": "^2.2.17",
     "parsegraph-matrix": "^1.4.12",
-    "parsegraph-timingbelt": "^1.7.12"
+    "parsegraph-timingbelt": "^1.7.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
