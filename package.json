@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-projector",
-  "version": "1.14.5",
+  "version": "1.14.6",
   "description": "projector",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
