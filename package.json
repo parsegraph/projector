@@ -17,7 +17,7 @@
   "dependencies": {
     "parsegraph-compileprogram": "^2.2.18",
     "parsegraph-matrix": "^1.4.13",
-    "parsegraph-timingbelt": "^1.7.14"
+    "parsegraph-timingbelt": "^1.7.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -43,8 +43,8 @@
     "jest": "^28.0.3",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
-    "parsegraph-checkglerror": "^1.5.4",
-    "parsegraph-log": "^1.7.4",
+    "parsegraph-checkglerror": "^1.5.5",
+    "parsegraph-log": "^1.9.0",
     "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "resize-observer-polyfill": "^1.5.1",
@@ -58,7 +58,7 @@
     "webpack-cli": "^4.9.2"
   },
   "peerDependencies": {
-    "parsegraph-checkglerror": "^1.5.4",
-    "parsegraph-log": "^1.7.4"
+    "parsegraph-checkglerror": "^1.5.5",
+    "parsegraph-log": "^1.9.0"
   }
 }
