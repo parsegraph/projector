@@ -4,7 +4,6 @@ SCRIPT_FILES = \
 	src/index.ts \
 	src/Projected.ts \
 	src/ImageProjector.ts \
-	src/FPSProjected.ts \
 	src/AbstractProjector.ts \
 	src/screenshot.ts \
 	src/SharedProjector.ts \
