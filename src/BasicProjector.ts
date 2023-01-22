@@ -76,7 +76,7 @@ export default class BasicProjector extends AbstractProjector {
     return this.glProvider().height();
   }
 
-  setOffscreen(offscreen:boolean): void {
+  setOffscreen(offscreen: boolean): void {
     this._offscreen = offscreen;
   }
 
