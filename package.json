@@ -47,7 +47,7 @@
     "jsdom": "^21.0.0",
     "jsdom-global": "^3.0.2",
     "parsegraph-checkglerror": "^1.5.6",
-    "parsegraph-log": "^1.9.1",
+    "parsegraph-log": "^1.9.2",
     "prettier": "^2.8.3",
     "raw-loader": "^4.0.2",
     "resize-observer-polyfill": "^1.5.1",
@@ -62,6 +62,6 @@
   },
   "peerDependencies": {
     "parsegraph-checkglerror": "^1.5.6",
-    "parsegraph-log": "^1.9.1"
+    "parsegraph-log": "^1.9.2"
   }
 }
