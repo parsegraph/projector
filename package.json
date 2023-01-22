@@ -17,6 +17,8 @@
   "dependencies": {
     "parsegraph-compileprogram": "^2.2.18",
     "parsegraph-matrix": "^1.4.13",
+    "parsegraph-rect": "^1.5.3",
+    "parsegraph-timing": "^1.4.17",
     "parsegraph-timingbelt": "^1.7.15"
   },
   "devDependencies": {
