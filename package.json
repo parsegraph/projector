@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/parsegraph/projector#readme",
   "dependencies": {
-    "parsegraph-compileprogram": "^2.2.20",
+    "parsegraph-compileprogram": "^2.2.21",
     "parsegraph-matrix": "^1.4.15",
     "parsegraph-rect": "^1.5.4",
     "parsegraph-timing": "^1.4.19",
